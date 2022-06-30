@@ -1,6 +1,7 @@
 import argparse
 import json
 from PIL import Image, ImageDraw
+from pathlib import Path
 
 from utils import coerce_to_path_and_check_exist, coerce_to_path_and_create_dir
 from utils.constant import ILLUSTRATION_COLOR, TABLE_WORD_COLOR, PARAGRAPH_COLOR, SEG_GROUND_TRUTH_FMT
@@ -13,7 +14,7 @@ class ViaJson2Image:
     json file created through VIA software.
     """
 
-    def __init__(self, input_dir, output_dir, json_file='via_region_data.json', out_ext='png', color=PARAGRAPH_COLOR,
+    def __init__(self, input_dir, output_dir, json_file='via_region_data.json', out_ext='png', color=ILLUSTRATION_COLOR,
                  verbose=True):
         self.input_dir = coerce_to_path_and_check_exist(input_dir)
         self.annotations = self.load_json(self.input_dir / json_file)
@@ -39,36 +40,38 @@ class ViaJson2Image:
 
     def convert(self, annot):
         name = annot['filename']
-        if self.verbose:
-            print_info('Converting VIA annotations for {}'.format(name))
-        if not (self.input_dir / name).exists:
-            print_error('Original image {} not found'.format(name))
-            return None
+        if(Path(self.input_dir / name).exists()):
 
-        size = Image.open(self.input_dir / name).size
-        img = Image.new(self.mode, size, color=self.background_color)
-        draw = ImageDraw.Draw(img)
+            if self.verbose:
+                print_info('Converting VIA annotations for {}'.format(name))
+            if not (self.input_dir / name).exists:
+                print_error('Original image {} not found'.format(name))
+                return None
 
-        for region in annot['regions']:
-            shape = region['shape_attributes']
-            if shape['name'] == 'circle':
-                cx, cy, r = shape['cx'], shape['cy'], shape['r']
-                bbox = [(cx - r, cy - r), (cx + r, cy + r)]
-                draw.ellipse(bbox, fill=self.color)
-            elif shape['name'] == 'ellipse':
-                cx, cy, rx, ry = shape['cx'], shape['cy'], shape['rx'], shape['ry']
-                bbox = [(cx - rx, cy - ry), (cx + rx, cy + ry)]
-                draw.ellipse(bbox, fill=self.color)
-            elif shape['name'] == 'polygon':
-                polygon = list(zip(shape['all_points_x'], shape['all_points_y']))
-                draw.polygon(polygon, fill=self.color)
-            elif shape['name']=='rect':
-                x, y, h, w = shape['x'], shape['y'], shape['height'], shape['width']
-                draw.rectangle([(x, y), (x+w, y+h)], fill = self.color)
-            else:
-                raise NotImplementedError('shape "{}" not implemented'.format(shape['name']))
+            size = Image.open(self.input_dir / name).size
+            img = Image.new(self.mode, size, color=self.background_color)
+            draw = ImageDraw.Draw(img)
 
-        return img
+            for region in annot['regions']:
+                shape = region['shape_attributes']
+                if shape['name'] == 'circle':
+                    cx, cy, r = shape['cx'], shape['cy'], shape['r']
+                    bbox = [(cx - r, cy - r), (cx + r, cy + r)]
+                    draw.ellipse(bbox, fill=self.color)
+                elif shape['name'] == 'ellipse':
+                    cx, cy, rx, ry = shape['cx'], shape['cy'], shape['rx'], shape['ry']
+                    bbox = [(cx - rx, cy - ry), (cx + rx, cy + ry)]
+                    draw.ellipse(bbox, fill=self.color)
+                elif shape['name'] == 'polygon':
+                    polygon = list(zip(shape['all_points_x'], shape['all_points_y']))
+                    draw.polygon(polygon, fill=self.color)
+                elif shape['name']=='rect':
+                    x, y, h, w = shape['x'], shape['y'], shape['height'], shape['width']
+                    draw.rectangle([(x, y), (x+w, y+h)], fill = self.color)
+                else:
+                    raise NotImplementedError('shape "{}" not implemented'.format(shape['name']))
+
+            return img
 
 
 if __name__ == '__main__':
