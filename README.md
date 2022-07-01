@@ -53,7 +53,7 @@ Main arguments:
 - `-t, --table_multi_labels`: whether or not to generate 4 distinct datasets, to deal with multi label classification (in order to train a network with 4 branches, necessary for the recognition of tables structures)
 
 The training dataset has the following structure:
-– it is composed of three distinct `train`, `val` and `test` folders
+- it is composed of three distinct `train`, `val` and `test` folders
 - in these folders, each `name.jpg` input image is linked to a corresponding `name_seg.png` ground truth label image
 
 The synthetic dataset layouts, and element compositions can be easily changed by modifying:
