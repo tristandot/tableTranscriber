@@ -58,7 +58,7 @@ The training dataset has the following structure:
 
 The synthetic dataset layouts, and element compositions can be easily changed by modifying:
 - the variables defined in `tableExtractor/src/synthetic/document.py` (and especially the variables `LAYOUT_RANGE` and `ELEMENT_FREQ`)
-- the classes defined in `tableExtractor/src/synthetic/element.py` (and especially the classes `TableElement_loose`, `TableElement_compact`, `DiagramElement`).
+- the classes defined in `tableExtractor/src/synthetic/element.py` (and especially the classes `TableElement_loose`, `TableElement_compact`, `DiagramElement`)
 
 **N.B.**: All the labels, and corresponding colors are defined in `tableExtractor/src/utils/constant.py`. 
 
