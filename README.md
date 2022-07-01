@@ -2,6 +2,10 @@
 
 **tableTranscriber** is based on [docExtractor](https://github.com/monniert/docExtractor) (work of Tom Monnier) and a CRNN [HTR method](https://github.com/vloison/Handwritten_Text_Recognition) (work of Virginie Loison and Xiwei Hu) to automatically recognize astronomical tables structure, and transcribe their content. It can be easily re-trained on new synthetic datasets, or fine-tuned on real world data.
 
+For a technical explanation on how tableTranscriber works, please read our [work report](https://github.com/tristandot/tableTranscriber/work_report_tableTranscriber.pdf).
+
+![illustration](illustration_pipeline.jpg)
+
 
 ## Installation
 
