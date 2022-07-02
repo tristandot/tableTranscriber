@@ -314,10 +314,6 @@ class Trainer:
         self.train_time.update((time.time() - start_time) / self.batch_size)
 
     def log_train_metrics(self, cur_iter, epoch, batch):
-        
-        with open(self.train_metrics_reg_path, mode="a") as f:
-            f.write("{}\t{}\t{}\t{:.4f}\t{:.4f}\n"
-                    .format(cur_iter, epoch, batch, self.train_loss.avg, self.train_time.avg))
 
         stat = PRINT_TRAIN_STAT_FMT.format(epoch, self.n_epoches, batch, self.n_batches,
                                            self.train_loss.avg, self.train_time.avg)

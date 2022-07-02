@@ -1,0 +1,59 @@
+#Example of fine-tuning config file, to re-train the network only on columns and rows separators segmentation
+
+#To work smoothly with transcriber.py (and so to transcribe correctly astronomical tables), the restricted_labels_3 must correspond to the column label (14), and the restricted_labels_4 must correspond to the rows label (13)
+
+#The dataset 3 must give annotations concerning the columns separators (with corresponding column color, as indicated in utils/constant.py), and the dataset 4 must give annotations concerning rows separators
+
+#Datasets 1 and 2 can be random (but must have the correct dataset structure): the 1st and 2nd branches of the network won't be taken into account in this particular situation (fine-tuning on columns and rows separators only, and not on other labels)
+
+#To fine-tune only on the 3rd and 4th branches, you must modify, in the train.py file, the losses variables definitions in the functions single_train_batch_run and run_val. In our example case (fine-tuning on columns and rows, i.e. on branches 3 and 4), you must pu, respectively: loss = loss_3 + loss_4, and loss = self.criterion(outputs_3, labels_3) + self.criterion(outputs_4, labels_4).
+
+#The fine-tuning can be done with the four_branches_tables pre-trained model as a starting point. You need fewer epochs than for a training from scratch (the fewer fine-tuning data you have, the fewer epochs you will need, to avoid over-fitting).
+
+dataset: 
+    name_1: tables/random_annotations
+    name_2: tables/random_annotations
+    name_3: tables/columns_annotations
+    name_4: tables/rows_annotations
+    restricted_labels_1: [1, 4, 6]
+    restricted_labels_2: [9]
+    restricted_labels_3: [14]
+    restricted_labels_4: [13]
+    img_size: [1280, 1280]
+    normalize: True
+    data_augmentation: True
+    blur_radius_range: [0.2, 2]
+    brightness_factor_range: [0.9, 1.1]
+    contrast_factor_range: [0.5, 2]
+    rotation_angle_range: [-10, 10]
+    sampling_ratio_range: [1, 1]
+    sampling_max_nb_pixels: 3.5e+6
+    transposition_weights: [0.25, 0.25, 0.25, 0.25]
+model:
+    name: res_unet18
+    norm_layer:
+        name: 'instance_norm'
+        momentum: 0.1
+        affine: True
+        track_running_stats: False
+        num_groups: 32
+    conv_as_maxpool: True
+    use_deconv: True
+training:
+    cudnn_benchmark: False
+    batch_size: 1
+    n_workers: 4
+    optimizer:
+        name: adam
+        lr: 1.0e-3
+        weight_decay: 1.0e-6
+    scheduler:
+        name: multi_step
+        gamma: 0.5
+        milestones: [3, 5, 11]
+    loss: cross_entropy
+    n_epoches: 5
+    train_stat_interval: 500
+    val_stat_interval: 1000
+    pretrained: four_branches_tables
+    resume:

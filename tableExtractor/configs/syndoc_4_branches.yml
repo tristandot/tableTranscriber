@@ -1,8 +1,8 @@
 dataset: 
-    name_1: dataset_test/0
-    name_2: dataset_test/1
-    name_3: dataset_test/3
-    name_4: dataset_test/2
+    name_1: synthetic_tables/0
+    name_2: synthetic_tables/1
+    name_3: synthetic_tables/3
+    name_4: synthetic_tables/2
     restricted_labels_1: [1, 4, 6]
     restricted_labels_2: [9]
     restricted_labels_3: [14]
@@ -40,7 +40,7 @@ training:
         gamma: 0.5
         milestones: [3, 5, 11]
     loss: cross_entropy
-    n_epoches: 18
+    n_epoches: 20
     train_stat_interval: 500
     val_stat_interval: 1000
     pretrained: default

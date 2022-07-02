@@ -33,6 +33,7 @@ It will download:
     - our trained model for astronomical table structure recognition (located: `tableExtractor/models/four_branches_tables`)
     - docExtractor's default trained model (created by Tom Monnier)
     - synthetic resources needed to generate SynDoc (collected by Tom Monnier, located: `tableExtractor/synthetic_resource`)
+	- a synthetic dataset with 10K images and their corresponding ground truths for the 4 branches of our network (located: `tableExtractor/datasets/synthetic_tables`) ; the synthetic images contain tables and diagrams inspired by astronomical manuscripts
     - DishasTables dataset (located: `tableExtractor/datasets/DishasTables`)
 - **HTR**:
     - our trained model for HTR on astronomical tables (located: `HTR/trained_networks/medieval_numbers.pth`)
@@ -123,7 +124,7 @@ Main arguments:
 
 Concerning fine-tuning, please see the corresponding [docExtractor](https://github.com/monniert/docExtractor) `README` explanations, especially concerning the use of [VGG Image Anotator](http://www.robots.ox.ac.uk/~vgg/software/via/) and `tableExtractor/src/via_converter.py` tool to create the corresponding annotated images training dataset. 
 
-To fine tune a neural network, the `pretrained` variable of the training `.yml` config file must correspond to a pre-trained network `.pkl` (for instance `default`, or `four_branches_tables`).
+To fine tune a neural network, the `pretrained` variable of the training `.yml` config file must correspond to a pre-trained network `.pkl` (for instance `default`, or `four_branches_tables`). An example of fine-tuning config file can be found at `tableExtractor/configs/syndoc_4_branches_fine_tuning.yml` – in this case, the fine-tuning is made on the columns and rows separators labels (on the branches adapted to make `tableExtractor/src/transcriber.py` works correctly), as explained in the comments at the beginning of the file.
 
 In our case, since we are working with 4 branches neural networks, you need to freeze the losses you are not interested in during the fine-tuning.
 In `tableExtractor/src/trainer.py`: please modify the `loss` variables definitions, in the functions `single_train_batch_run` and `run_val`, to take into account only the branches of interest in your fine-tuning on 4 branches.
