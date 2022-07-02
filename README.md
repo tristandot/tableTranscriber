@@ -140,6 +140,6 @@ CUDA_VISIBLE_DEVICES=gpu_id python tableExtractor/src/transcriber.py --input_dir
 Main arguments:
 - `-i, --input_dir`: directory with images of tables to transcribe
 - `-o, --output_dir`: directory where transcribed tables will be saved
-- `-t, --tag`: model use for table segmentation (e.g. `four_branches_tables`)
+- `-t, --tag`: model used for table segmentation (e.g. `four_branches_tables`)
 
 In outputs, `transcriber.py` will create folders of cropped indexed cells (depending on the rows and columns separators, in the `cell_images` folder), automatically transcribed (transcription can be found in `cell_images/predictions.txt`). Fully transcribed tables are also created in `.html` and `.xml` file formats.
