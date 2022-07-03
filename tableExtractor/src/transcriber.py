@@ -127,7 +127,7 @@ class TableTranscriber:
                         if label != BACKGROUND_LABEL:
                             if label in self.restricted_labels_1:
                                 if(label == TEXT_LABEL):
-                                    #For the text label, determination of the mean, and extreme coordinates of all the textual cells
+                                    #Extraction of the cells (corresponding to the text label), with determination of the mean, and extreme coordinates of all the textual cells
                                     text_extracted_elements, x_text, y_text = self.extract(img, pred_1, label, img_with_annotations) 
                                     x_t_min = [np.min(x) for x in x_text]
                                     y_t_min = [np.min(y) for y in y_text]
