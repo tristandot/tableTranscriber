@@ -145,14 +145,16 @@ class TableTranscriber:
                             elif label in self.restricted_labels_3:
                                 #Extraction of the columns separators and determination of their coordinates
                                 extracted_elements, x_coord, y_coord = self.extract(img, pred_3, label, img_with_annotations)
+                                #Creation of the columns separators (1-dimensional) list definition, by taking the mean (on the x axis) of the x_coords of each column: projection of each column on the x-axis of the image
                                 x_coord = [np.mean(x) for x in x_coord]
-                                #Deletion of too close separators
+                                #Deletion of too close columns separators, with a threshold of img width / 150
                                 x_columns = self.delete_close(list(dict.fromkeys(np.sort(x_coord))), img_w/150)
                             elif label in self.restricted_labels_4:
                                 #Extraction of the lines separators and determination of their coordinates
                                 extracted_elements, x_coord, y_coord = self.extract(img, pred_4, label, img_with_annotations)
+                                #Creation of the rows separators (1-dimensional) list definition, by taking the mean (on the y axis) of the y_coords of each row: projection of each row on the y-axis of the image
                                 y_coord = [np.mean(y) for y in y_coord]
-                                #Deletion of too close separators
+                                #Deletion of too close rows separators, with a threshold of img height / 100
                                 y_lines = self.delete_close(list(dict.fromkeys(np.sort(y_coord))), img_h/100)
                      
                     #Draw the grid separators on the annotated image            
@@ -206,7 +208,7 @@ class TableTranscriber:
                 (output_path / 'cell_images').mkdir(exist_ok=True)
                                 
                 #Double loop to cut all the cells that span multiple rows or columns, and to save them according to their correct index
-                #In reality, we don't cut the cells vertically, because astronomical tables cells are generally well detected vertically, and trying to cut them according to this axis leads to an over-cutting of the cells
+                #In reality, in the above lines, we don't cut the cells on the y-axis, because astronomical tables cells are generally well detected vertically, and trying to cut them according to this axis leads to an over-cutting of the cells
                 if (c_min_index < c_max_index or l_min_index < l_max_index):
                     for c_index in np.arange(c_min_index, c_max_index+1):
                         for l_index in np.arange(l_min_index, l_max_index+1):
