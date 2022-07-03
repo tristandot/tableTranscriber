@@ -122,7 +122,7 @@ class TableTranscriber:
             
                     img_w, img_h = img.size
                     
-                    #Extraction of all the different labels, with their corresponding coordinates (in order to recognize the structure of the table)
+                    #Extraction of all the different labels, with their corresponding coordinates (in order to recognize the structure of the table ; to extract all the textual cells and then to index then correctly)
                     for label in self.labels_to_extract:
                         if label != BACKGROUND_LABEL:
                             if label in self.restricted_labels_1:
@@ -157,13 +157,14 @@ class TableTranscriber:
                                 #Deletion of too close rows separators, with a threshold of img height / 100
                                 y_lines = self.delete_close(list(dict.fromkeys(np.sort(y_coord))), img_h/100)
                      
-                    #Draw the grid separators on the annotated image, i.e. draw dashes at the coordinates of the projected columns and rows separators of the table
+                    #Draw the grid separators on the annotated image, i.e. draw red dashes at the coordinates of the projected columns and rows separators of the table
                     draw = ImageDraw.Draw(img_with_annotations)
                     for y in (y_lines):
                         draw.line([(50, y), (100, y)], fill = 255, width = 10)
                     for x in (x_columns):
                         draw.line([(x, 50), (x, 100)], fill = 255, width = 10)
-
+                        
+                    #Saving the annotated image
                     if self.save_annotations:
                         (self.output_dir / 'annotation').mkdir(exist_ok=True)
                         img_with_annotations.save(self.output_dir / 'annotation' / '{}_annotated.{}'
@@ -363,7 +364,7 @@ class TableTranscriber:
         print('Rotation angle:' + str(rotate_angle))           
         return rotate_angle
         
-    #Annotation functions
+    #Extraction and annotation functions, inspired by extractor.py
     def extract(self, image, pred, label, image_with_annotations):
         if label in self.restricted_labels_1:
             label_idx = self.restricted_labels_1.index(label) + 1
