@@ -141,7 +141,7 @@ Main arguments:
 - `-i, --input_dir`: directory with images of tables to transcribe
 - `-o, --output_dir`: directory where transcribed tables will be saved
 - `-t, --tag`: model used for table segmentation (e.g. `four_branches_tables`)
-- `-s, --save_annot` whether to save an annotated segmentation image
+- `-s, --save_annot` whether to save annotated segmentation images
 
 **N.B.**: Each input image should contain 0 or 1 table (no more than 1).
 
