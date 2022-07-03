@@ -134,13 +134,14 @@ In `tableExtractor/src/trainer.py`: please modify the `loss` variables definitio
 To transcribe astronomical tables, please use the following command:
 
 ```bash
-CUDA_VISIBLE_DEVICES=gpu_id python tableExtractor/src/transcriber.py --input_dir inp --output_dir out --tag tag
+CUDA_VISIBLE_DEVICES=gpu_id python tableExtractor/src/transcriber.py --input_dir inp --output_dir out --tag tag --save_annot
 ```
 
 Main arguments:
 - `-i, --input_dir`: directory with images of tables to transcribe
 - `-o, --output_dir`: directory where transcribed tables will be saved
 - `-t, --tag`: model used for table segmentation (e.g. `four_branches_tables`)
+- `-s, --save_annot` whether to save an annotated segmentation image
 
 **N.B.**: Each input image should contain 0 or 1 table (no more than 1).
 
