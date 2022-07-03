@@ -226,6 +226,7 @@ class TableTranscriber:
                                 y_indices['{},{}'.format(index[0], index[1])] = [y_t_min[i], y_t_max[i]]
                 #If the cells don't span multiple rows or columns, we index them according to their center coordinates, in relation to rows and columns separators
                 else:
+                    #bisect() functions determines the index of the closest element to x_text[i] or y_text[i] (i.e. the projected cells coordinates, on the x-axis and y-axis) in, respectively, the 1-dimensional lists x_columns and y_lines (which correspond the projected coordinates (on the x and y axis) of the columns and rows of the table) ; thanks to this bisect() functions, the index of each cell in the table can be easely computed
                     c_index = bisect(x_columns, x_text[i])
                     l_index = bisect(y_lines, y_text[i])
                     index = [l_index,c_index]
