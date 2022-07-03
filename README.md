@@ -142,4 +142,6 @@ Main arguments:
 - `-o, --output_dir`: directory where transcribed tables will be saved
 - `-t, --tag`: model used for table segmentation (e.g. `four_branches_tables`)
 
+**N.B.**: Each input image should contain 0 or 1 table (no more than 1).
+
 In outputs, `transcriber.py` will create folders of cropped indexed cells (depending on the rows and columns separators, in the `cell_images` folder), automatically transcribed (transcription can be found in `cell_images/predictions.txt`). Fully transcribed tables are also created in `.html` and `.xml` file formats.

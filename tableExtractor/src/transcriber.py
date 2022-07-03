@@ -54,7 +54,7 @@ class TableTranscriber:
     """
     Extract and transcribe tables from files in a given input_dir folder and save them in the provided output_dir.
     Supported input extensions are: jpg, png, tiff, pdf.
-    Each input image is thought to contain 0 or 1 table (no more than 1).
+    Each input image should contain 0 or 1 table (no more than 1).
     This program is thought to work on a four branches network, with the following labels: 
     restricted_labels_1 = [1, 4, 6], restricted_labels_2 = [9], restricted_labels_3 = [14], restricted_labels_4 = [13]
     """
