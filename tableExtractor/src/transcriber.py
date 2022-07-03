@@ -157,7 +157,7 @@ class TableTranscriber:
                                 #Deletion of too close rows separators, with a threshold of img height / 100
                                 y_lines = self.delete_close(list(dict.fromkeys(np.sort(y_coord))), img_h/100)
                      
-                    #Draw the grid separators on the annotated image            
+                    #Draw the grid separators on the annotated image, i.e. draw dashes at the coordinates of the projected columns and rows separators of the table
                     draw = ImageDraw.Draw(img_with_annotations)
                     for y in (y_lines):
                         draw.line([(50, y), (100, y)], fill = 255, width = 10)
@@ -220,6 +220,7 @@ class TableTranscriber:
                             
                                 sub_element = text_extracted_elements[i].crop(area)
                                 index = [l_index,c_index]
+                                #Save the extracted, cut cells, as images, with their corresponding indexes in the table as file name
                                 sub_element.save(output_path / 'cell_images' / '{}.{}'
                                             .format('({0},{1})'.format(index[0], index[1]), 'jpg'))                                         
                                 x_indices['{},{}'.format(index[0], index[1])] = [x_min, x_max]
@@ -232,6 +233,7 @@ class TableTranscriber:
                     index = [l_index,c_index]
                     x_indices['{},{}'.format(index[0], index[1])] = [x_t_min[i], x_t_max[i]]
                     y_indices['{},{}'.format(index[0], index[1])] = [y_t_min[i], y_t_max[i]]
+                    #Save the extracted cells, as images, with their corresponding indexes in the table as file name
                     text_extracted_elements[i].save(output_path / 'cell_images' / '{}.{}'
                                                 .format('({0},{1})'.format(index[0], index[1]), 'jpg')) 
                                                 
