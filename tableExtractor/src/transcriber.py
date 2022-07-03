@@ -145,14 +145,14 @@ class TableTranscriber:
                             elif label in self.restricted_labels_3:
                                 #Extraction of the columns separators and determination of their coordinates
                                 extracted_elements, x_coord, y_coord = self.extract(img, pred_3, label, img_with_annotations)
-                                #Creation of the columns separators (1-dimensional) list definition, by taking the mean (on the x axis) of the x_coords of each column: projection of each column on the x-axis of the image
+                                #Creation of the columns separators (1-dimensional) list definition, by taking the mean (on the x axis) of the x_coords of each column: projection of each column on the x-axis of the image, by reducing each column to its mean x-axis coordinates
                                 x_coord = [np.mean(x) for x in x_coord]
                                 #Deletion of too close columns separators, with a threshold of img width / 150
                                 x_columns = self.delete_close(list(dict.fromkeys(np.sort(x_coord))), img_w/150)
                             elif label in self.restricted_labels_4:
                                 #Extraction of the lines separators and determination of their coordinates
                                 extracted_elements, x_coord, y_coord = self.extract(img, pred_4, label, img_with_annotations)
-                                #Creation of the rows separators (1-dimensional) list definition, by taking the mean (on the y axis) of the y_coords of each row: projection of each row on the y-axis of the image
+                                #Creation of the rows separators (1-dimensional) list definition, by taking the mean (on the y axis) of the y_coords of each row: projection of each row on the y-axis of the image, by reducing each row to its mean y-axis coordinates
                                 y_coord = [np.mean(y) for y in y_coord]
                                 #Deletion of too close rows separators, with a threshold of img height / 100
                                 y_lines = self.delete_close(list(dict.fromkeys(np.sort(y_coord))), img_h/100)
