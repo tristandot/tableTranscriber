@@ -31,7 +31,7 @@ To download our models and datasets, please enter the following command:
 It will download: 
 - **Structure recognition**:
     - our trained model for astronomical table structure recognition (located: `tableExtractor/models/four_branches_tables`)
-    - docExtractor's default trained model (created by Tom Monnier)
+    - docExtractor's default trained model (created by Tom Monnier, located: `tableExtractor/models/default`)
     - synthetic resources needed to generate SynDoc (collected by Tom Monnier, located: `tableExtractor/synthetic_resource`)
 	- a synthetic dataset with 10K images and their corresponding ground truths for the 4 branches of our network (located: `tableExtractor/datasets/synthetic_tables`) ; the synthetic images contain tables and diagrams inspired by astronomical manuscripts
     - DishasTables dataset (located: `tableExtractor/datasets/DishasTables`)
