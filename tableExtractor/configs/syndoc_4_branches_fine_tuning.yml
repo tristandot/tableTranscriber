@@ -1,6 +1,6 @@
 #Example of fine-tuning config file, to re-train the network only on columns and rows separators segmentation.
 
-#To work smoothly with transcriber.py (and so to transcribe correctly astronomical tables), the restricted_labels_3 must correspond to the column label (14), and the restricted_labels_4 must correspond to the rows label (13). Moreover, restricted_labels_1 must correpond to the illustration, text and text borders label (1, 4, 6), and restricted_labels_2 must correpond to the table label (9). (all the labels are defined in utils/constant.py)
+#To work smoothly with transcriber.py (and so to transcribe correctly astronomical tables), the restricted_labels_3 must correspond to the column label (14), and the restricted_labels_4 must correspond to the rows label (13). Moreover, restricted_labels_1 must correpond to the illustration, text and text borders labels (1, 4, 6), and restricted_labels_2 must correpond to the table label (9). (all the labels are defined in utils/constant.py)
 
 #The dataset 3 must give annotations concerning the columns separators (with corresponding column color, as indicated in utils/constant.py), and the dataset 4 must give annotations concerning rows separators.
 
