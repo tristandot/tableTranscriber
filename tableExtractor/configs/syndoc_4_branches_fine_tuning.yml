@@ -19,7 +19,7 @@ dataset:
     restricted_labels_2: [9]
     restricted_labels_3: [14]
     restricted_labels_4: [13]
-	#On-the-go preprocessing parameters
+#On-the-go preprocessing parameters
     img_size: [1280, 1280]
     normalize: True
     data_augmentation: True
